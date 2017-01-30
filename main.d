@@ -1,4 +1,10 @@
-main.o: main.cpp MODEM.h mbed-src/api/mbed.h mbed-src/api/platform.h \
+main.o: main.cpp MODEM.h FreeRTOS/Source/include/FreeRTOS.h \
+ FreeRTOS/FreeRTOSConfig.h FreeRTOS/Source/include/projdefs.h \
+ FreeRTOS/Source/include/portable.h \
+ FreeRTOS/Source/include/deprecated_definitions.h \
+ FreeRTOS/Source/portable/RVDS/ARM_CM3/portmacro.h \
+ FreeRTOS/Source/include/mpu_wrappers.h mbed-src/api/mbed.h \
+ mbed-src/api/platform.h \
  mbed-src/targets/hal/TARGET_STM/TARGET_STM32F4/TARGET_ARCH_MAX/device.h \
  mbed-src/targets/hal/TARGET_STM/TARGET_STM32F4/TARGET_ARCH_MAX/objects.h \
  mbed-src/targets/cmsis/TARGET_STM/TARGET_STM32F4/TARGET_STM32F407VG/cmsis.h \
@@ -96,9 +102,30 @@ main.o: main.cpp MODEM.h mbed-src/api/mbed.h mbed-src/api/platform.h \
  mbed-src/api/LowPowerTimeout.h mbed-src/api/LowPowerTicker.h \
  mbed-src/api/LowPowerTimer.h mbed-src/api/LocalFileSystem.h \
  mbed-src/api/InterruptIn.h mbed-src/hal/gpio_irq_api.h \
- mbed-src/api/wait_api.h mbed-src/hal/sleep_api.h mbed-src/api/rtc_time.h
+ mbed-src/api/wait_api.h mbed-src/hal/sleep_api.h mbed-src/api/rtc_time.h \
+ FreeRTOS/Source/include/semphr.h FreeRTOS/Source/include/queue.h \
+ FreeRTOS/Source/include/task.h FreeRTOS/Source/include/list.h \
+ SDFileSystem/SDFileSystem.h SDFileSystem/FATFileSystem/FATFileSystem.h \
+ mbed-src/api/FileSystemLike.h mbed-src/api/DirHandle.h \
+ mbed-src/api/FileHandle.h SDFileSystem/FATFileSystem/ChaN/ff.h \
+ SDFileSystem/FATFileSystem/ChaN/integer.h \
+ SDFileSystem/FATFileSystem/ChaN/ffconf.h RXTask.h
 
 MODEM.h:
+
+FreeRTOS/Source/include/FreeRTOS.h:
+
+FreeRTOS/FreeRTOSConfig.h:
+
+FreeRTOS/Source/include/projdefs.h:
+
+FreeRTOS/Source/include/portable.h:
+
+FreeRTOS/Source/include/deprecated_definitions.h:
+
+FreeRTOS/Source/portable/RVDS/ARM_CM3/portmacro.h:
+
+FreeRTOS/Source/include/mpu_wrappers.h:
 
 mbed-src/api/mbed.h:
 
@@ -363,3 +390,29 @@ mbed-src/api/wait_api.h:
 mbed-src/hal/sleep_api.h:
 
 mbed-src/api/rtc_time.h:
+
+FreeRTOS/Source/include/semphr.h:
+
+FreeRTOS/Source/include/queue.h:
+
+FreeRTOS/Source/include/task.h:
+
+FreeRTOS/Source/include/list.h:
+
+SDFileSystem/SDFileSystem.h:
+
+SDFileSystem/FATFileSystem/FATFileSystem.h:
+
+mbed-src/api/FileSystemLike.h:
+
+mbed-src/api/DirHandle.h:
+
+mbed-src/api/FileHandle.h:
+
+SDFileSystem/FATFileSystem/ChaN/ff.h:
+
+SDFileSystem/FATFileSystem/ChaN/integer.h:
+
+SDFileSystem/FATFileSystem/ChaN/ffconf.h:
+
+RXTask.h:

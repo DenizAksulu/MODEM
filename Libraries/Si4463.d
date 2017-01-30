@@ -1,4 +1,5 @@
-MODEM.o: MODEM.cpp MODEM.h FreeRTOS/Source/include/FreeRTOS.h \
+Libraries/Si4463.o: Libraries/Si4463.cpp Libraries/Si4463.h \
+ Libraries/../MODEM.h FreeRTOS/Source/include/FreeRTOS.h \
  FreeRTOS/FreeRTOSConfig.h FreeRTOS/Source/include/projdefs.h \
  FreeRTOS/Source/include/portable.h \
  FreeRTOS/Source/include/deprecated_definitions.h \
@@ -111,7 +112,9 @@ MODEM.o: MODEM.cpp MODEM.h FreeRTOS/Source/include/FreeRTOS.h \
  SDFileSystem/FATFileSystem/ChaN/integer.h \
  SDFileSystem/FATFileSystem/ChaN/ffconf.h
 
-MODEM.h:
+Libraries/Si4463.h:
+
+Libraries/../MODEM.h:
 
 FreeRTOS/Source/include/FreeRTOS.h:
 

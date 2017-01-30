@@ -1,4 +1,4 @@
-MODEM.o: MODEM.cpp MODEM.h FreeRTOS/Source/include/FreeRTOS.h \
+RXTask.o: RXTask.cpp RXTask.h MODEM.h FreeRTOS/Source/include/FreeRTOS.h \
  FreeRTOS/FreeRTOSConfig.h FreeRTOS/Source/include/projdefs.h \
  FreeRTOS/Source/include/portable.h \
  FreeRTOS/Source/include/deprecated_definitions.h \
@@ -109,7 +109,10 @@ MODEM.o: MODEM.cpp MODEM.h FreeRTOS/Source/include/FreeRTOS.h \
  mbed-src/api/FileSystemLike.h mbed-src/api/DirHandle.h \
  mbed-src/api/FileHandle.h SDFileSystem/FATFileSystem/ChaN/ff.h \
  SDFileSystem/FATFileSystem/ChaN/integer.h \
- SDFileSystem/FATFileSystem/ChaN/ffconf.h
+ SDFileSystem/FATFileSystem/ChaN/ffconf.h Libraries/Si4463.h \
+ Libraries/../MODEM.h
+
+RXTask.h:
 
 MODEM.h:
 
@@ -414,3 +417,7 @@ SDFileSystem/FATFileSystem/ChaN/ff.h:
 SDFileSystem/FATFileSystem/ChaN/integer.h:
 
 SDFileSystem/FATFileSystem/ChaN/ffconf.h:
+
+Libraries/Si4463.h:
+
+Libraries/../MODEM.h:
