@@ -25,6 +25,7 @@ namespace MODEM
 	 */
 	xTaskHandle WDTTaskHandle = NULL;    				// Task handle for WDT task
 	xTaskHandle RXTaskHandle = NULL;    				// Task handle
+	xTaskHandle TXTaskHandle = NULL;    				// Task handle
 
 	/*
 	 * MUTEX and Semaphore definitions

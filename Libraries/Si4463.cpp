@@ -18,7 +18,7 @@ Si4463::Si4463(SPI* spi, DigitalOut* nsel, DigitalOut* sdn)
 	_nsel->write(1);					// NSEL is HIGH
 	_mutex = xSemaphoreCreateMutex();	// Create MUTEX
 	_timeout = 10000;					// Command timeout in us
-	_spi->frequency(500000);			// 1 MHz
+	_spi->frequency(10000000);			// 1 MHz
 	_spi->format(8);					// 1 | 0
 }
 
@@ -51,6 +51,80 @@ unsigned char Si4463::PartInfo(unsigned char* INFO)
 {
 	INFO[0] = 0x01;
 	return _cmd(INFO, 1, 8);
+}
+
+unsigned char Si4463::FuncInfo(unsigned char* INFO)
+{
+	INFO[0] = 0x10;
+	return _cmd(INFO, 1, 6);
+}
+
+unsigned char Si4463::SetProperty(unsigned char GROUP, unsigned char NUM_PROPS, unsigned char START_PROP, unsigned char* DATA)
+{
+	unsigned char BUFFER[4 + NUM_PROPS] = {0};
+	BUFFER[0] = 0x11;
+	BUFFER[1] = GROUP;
+	BUFFER[2] = NUM_PROPS;
+	BUFFER[3] = START_PROP;
+	for(int i = 0; i < NUM_PROPS; i++)
+	{
+		BUFFER[4 + i] = DATA[i];
+	}
+	return _cmd(BUFFER, 4 + NUM_PROPS, 0);
+}
+
+unsigned char Si4463::GetProperty(unsigned char GROUP, unsigned char NUM_PROPS, unsigned char START_PROP, unsigned char* DATA)
+{
+	unsigned char BUFFER[NUM_PROPS] = {0};
+	BUFFER[0] = 0x12;
+	BUFFER[1] = GROUP;
+	BUFFER[2] = NUM_PROPS;
+	BUFFER[3] = START_PROP;
+	unsigned char result = _cmd(BUFFER, 4, NUM_PROPS);
+	for(int i = 0; i < NUM_PROPS; i++)
+	{
+		DATA[i] = BUFFER[i];
+	}
+	return result;
+}
+
+unsigned char Si4463::SetGPIO(PULL_MODE* pull_mode, GPIO_MODE* gpio_mode, DRIVE_MODE drive_mode = DRV_HIGH)
+{
+	unsigned char BUFFER[8] = {0};
+	unsigned char buffer_index = 0;
+	BUFFER[buffer_index++] = 0x13;
+	if(pull_mode[buffer_index - 1] == DISABLE_PULLUP)
+		BUFFER[buffer_index] = gpio_mode[buffer_index - 1];
+	else
+		BUFFER[buffer_index] = gpio_mode[buffer_index - 1] | (0x01 << 6);
+	buffer_index++;
+	if(pull_mode[buffer_index - 1] == DISABLE_PULLUP)
+			BUFFER[buffer_index] = gpio_mode[buffer_index - 1];
+	else
+		BUFFER[buffer_index] = gpio_mode[buffer_index - 1] | (0x01 << 6);
+	buffer_index++;
+	if(pull_mode[buffer_index - 1] == DISABLE_PULLUP)
+			BUFFER[buffer_index] = gpio_mode[buffer_index - 1];
+	else
+	BUFFER[buffer_index] = gpio_mode[buffer_index - 1] | (0x01 << 6);
+	buffer_index++;
+	if(pull_mode[buffer_index - 1] == DISABLE_PULLUP)
+	BUFFER[buffer_index] = gpio_mode[buffer_index - 1];
+	else
+	BUFFER[buffer_index] = gpio_mode[buffer_index - 1] | (0x01 << 6);
+	buffer_index++;
+	if(pull_mode[buffer_index - 1] == DISABLE_PULLUP)
+	BUFFER[buffer_index] = gpio_mode[buffer_index - 1];
+	else
+	BUFFER[buffer_index] = gpio_mode[buffer_index - 1] | (0x01 << 6);
+	buffer_index++;
+	if(pull_mode[buffer_index - 1] == DISABLE_PULLUP)
+		BUFFER[buffer_index] = gpio_mode[buffer_index - 1];
+	else
+		BUFFER[buffer_index] = gpio_mode[buffer_index - 1] | (0x01 << 6);
+	buffer_index++;
+	BUFFER[buffer_index++] = drive_mode << 5;
+	return _cmd(BUFFER, 8, 7);
 }
 
 unsigned char Si4463::Temperature(unsigned char* TEMPERATURE)

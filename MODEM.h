@@ -50,6 +50,7 @@ namespace MODEM
 	 */
 	extern xTaskHandle WDTTaskHandle;    				// Task handle for WDT task
 	extern xTaskHandle RXTaskHandle;
+	extern xTaskHandle TXTaskHandle;
 
 	/*
 	 * MUTEX and Semaphore definitions

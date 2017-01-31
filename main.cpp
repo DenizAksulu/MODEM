@@ -1,5 +1,6 @@
 #include "MODEM.h"
 #include "RXTask.h"
+#include "TXTask.h"
 
 void WDTTaskCode(void* Parameters);
 
@@ -20,6 +21,7 @@ int main()
 	// Define tasks **************************************************************************
 	xTaskCreate(WDTTaskCode, "WDTTask", 512, NULL, (tskIDLE_PRIORITY + 11UL), &WDTTaskHandle);
 	xTaskCreate(RXTaskCode, "RXTask", 512, NULL, (tskIDLE_PRIORITY + 5UL), &RXTaskHandle);
+	xTaskCreate(TXTaskCode, "TXTask", 512, NULL, (tskIDLE_PRIORITY + 5UL), &TXTaskHandle);
 	// ***************************************************************************************
 	// ***************************************************************************************
 
