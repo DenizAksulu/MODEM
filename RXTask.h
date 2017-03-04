@@ -11,6 +11,6 @@
 #include "MODEM.h"
 
 void RXTaskCode(void* Parameters);
-
+void SyncInterrupt();
 
 #endif /* RXTASK_H_ */

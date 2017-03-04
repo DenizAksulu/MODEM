@@ -110,7 +110,7 @@ TXTask.o: TXTask.cpp TXTask.h MODEM.h FreeRTOS/Source/include/FreeRTOS.h \
  mbed-src/api/FileHandle.h SDFileSystem/FATFileSystem/ChaN/ff.h \
  SDFileSystem/FATFileSystem/ChaN/integer.h \
  SDFileSystem/FATFileSystem/ChaN/ffconf.h Libraries/Si4463.h \
- Libraries/../MODEM.h
+ Libraries/../MODEM.h Libraries/../TX_Config.h
 
 TXTask.h:
 
@@ -421,3 +421,5 @@ SDFileSystem/FATFileSystem/ChaN/ffconf.h:
 Libraries/Si4463.h:
 
 Libraries/../MODEM.h:
+
+Libraries/../TX_Config.h:

@@ -15,6 +15,7 @@
 #include "task.h"
 #include "SDFileSystem.h"
 
+
 #define DEBUG 1 // Debug mode enabled
 
 #if DEBUG
@@ -51,10 +52,13 @@ namespace MODEM
 	extern xTaskHandle WDTTaskHandle;    				// Task handle for WDT task
 	extern xTaskHandle RXTaskHandle;
 	extern xTaskHandle TXTaskHandle;
-
+	extern xTaskHandle CommandHandlingTaskHandle;
 	/*
 	 * MUTEX and Semaphore definitions
 	 */
 	extern SemaphoreHandle_t MUTEX_DEBUG;
+	extern SemaphoreHandle_t BINARY_MODEM;
+	extern QueueHandle_t QUEUE_RX_OBJECT;
+	extern QueueHandle_t QUEUE_TX_OBJECT;
 }
 #endif /* MODEM_H_ */

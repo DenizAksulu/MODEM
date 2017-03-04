@@ -1,6 +1,6 @@
-main.o: main.cpp MODEM.h FreeRTOS/Source/include/FreeRTOS.h \
- FreeRTOS/FreeRTOSConfig.h FreeRTOS/Source/include/projdefs.h \
- FreeRTOS/Source/include/portable.h \
+CommandHandlingTask.o: CommandHandlingTask.cpp CommandHandlingTask.h \
+ MODEM.h FreeRTOS/Source/include/FreeRTOS.h FreeRTOS/FreeRTOSConfig.h \
+ FreeRTOS/Source/include/projdefs.h FreeRTOS/Source/include/portable.h \
  FreeRTOS/Source/include/deprecated_definitions.h \
  FreeRTOS/Source/portable/RVDS/ARM_CM3/portmacro.h \
  FreeRTOS/Source/include/mpu_wrappers.h mbed-src/api/mbed.h \
@@ -109,9 +109,10 @@ main.o: main.cpp MODEM.h FreeRTOS/Source/include/FreeRTOS.h \
  mbed-src/api/FileSystemLike.h mbed-src/api/DirHandle.h \
  mbed-src/api/FileHandle.h SDFileSystem/FATFileSystem/ChaN/ff.h \
  SDFileSystem/FATFileSystem/ChaN/integer.h \
- SDFileSystem/FATFileSystem/ChaN/ffconf.h RXTask.h TXTask.h \
- CommandHandlingTask.h Libraries/Si4463.h Libraries/../MODEM.h \
- Libraries/../TX_Config.h
+ SDFileSystem/FATFileSystem/ChaN/ffconf.h Libraries/Si4463.h \
+ Libraries/../MODEM.h Libraries/../TX_Config.h
+
+CommandHandlingTask.h:
 
 MODEM.h:
 
@@ -416,12 +417,6 @@ SDFileSystem/FATFileSystem/ChaN/ff.h:
 SDFileSystem/FATFileSystem/ChaN/integer.h:
 
 SDFileSystem/FATFileSystem/ChaN/ffconf.h:
-
-RXTask.h:
-
-TXTask.h:
-
-CommandHandlingTask.h:
 
 Libraries/Si4463.h:
 

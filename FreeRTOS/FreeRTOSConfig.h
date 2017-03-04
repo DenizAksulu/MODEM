@@ -119,7 +119,7 @@ to exclude the API function. */
 #ifdef __NVIC_PRIO_BITS
 	#define configPRIO_BITS       __NVIC_PRIO_BITS
 #else
-	#define configPRIO_BITS       5        /* 32 priority levels */
+	#define configPRIO_BITS       4        /* 32 priority levels */
 #endif
 
 /* The lowest priority. */

@@ -110,7 +110,7 @@ Libraries/Si4463.o: Libraries/Si4463.cpp Libraries/Si4463.h \
  mbed-src/api/FileSystemLike.h mbed-src/api/DirHandle.h \
  mbed-src/api/FileHandle.h SDFileSystem/FATFileSystem/ChaN/ff.h \
  SDFileSystem/FATFileSystem/ChaN/integer.h \
- SDFileSystem/FATFileSystem/ChaN/ffconf.h
+ SDFileSystem/FATFileSystem/ChaN/ffconf.h Libraries/../TX_Config.h
 
 Libraries/Si4463.h:
 
@@ -417,3 +417,5 @@ SDFileSystem/FATFileSystem/ChaN/ff.h:
 SDFileSystem/FATFileSystem/ChaN/integer.h:
 
 SDFileSystem/FATFileSystem/ChaN/ffconf.h:
+
+Libraries/../TX_Config.h:
