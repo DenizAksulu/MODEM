@@ -15,6 +15,9 @@ namespace MODEM
 	DigitalOut WDI(PA_3, 1);
 	DigitalOut LED_BLUE(PB_10, 0);
 	DigitalOut LED_RED(PB_11, 0);
+	DigitalOut SW1(PC_3, 0);
+	DigitalOut SW2(PC_1, 1);
+	DigitalOut ENABLE_PA(PE_3, 0);
 	#if DEBUG
 	Serial DebugPort(PA_0, PA_1, "DebugPort");
 	#endif
@@ -27,12 +30,19 @@ namespace MODEM
 	xTaskHandle RXTaskHandle = NULL;    				// Task handle
 	xTaskHandle TXTaskHandle = NULL;    				// Task handle
 	xTaskHandle CommandHandlingTaskHandle = NULL;    				// Task handle
+	xTaskHandle PCHandlingTaskHandle = NULL;    				// Task handle
 
 	/*
 	 * MUTEX and Semaphore definitions
 	 */
 	SemaphoreHandle_t MUTEX_DEBUG = NULL;
 	SemaphoreHandle_t BINARY_MODEM = NULL;
+	SemaphoreHandle_t BINARY_PC = NULL;
 	QueueHandle_t QUEUE_RX_OBJECT = NULL;
 	QueueHandle_t QUEUE_TX_OBJECT = NULL;
+	QueueHandle_t QUEUE_RX_STATUS = NULL;
+	QueueHandle_t QUEUE_TX_STATUS = NULL;
+	QueueHandle_t QUEUE_PC_DATA = NULL;
+	QueueHandle_t QUEUE_PC_DATA_LENGTH = NULL;
+
 }

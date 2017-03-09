@@ -16,7 +16,7 @@
 #include "SDFileSystem.h"
 
 
-#define DEBUG 1 // Debug mode enabled
+#define DEBUG 0 // Debug mode enabled
 
 #if DEBUG
 	#define DBG(...) \
@@ -33,6 +33,14 @@
 #define DBG(...)
 #endif
 
+/* Structures */
+struct STRUCT_MODEM_STATUS
+{
+	unsigned char status;
+	unsigned char temperature[4];
+	unsigned char frequency[4];
+	unsigned char pa_value;
+};
 namespace MODEM
 {
 	/*
@@ -41,6 +49,9 @@ namespace MODEM
 	extern DigitalOut WDI;
 	extern DigitalOut LED_BLUE;
 	extern DigitalOut LED_RED;
+	extern DigitalOut SW1;
+	extern DigitalOut SW2;
+	extern DigitalOut ENABLE_PA;
 	#if DEBUG
 	extern Serial DebugPort;
 	#endif
@@ -53,12 +64,19 @@ namespace MODEM
 	extern xTaskHandle RXTaskHandle;
 	extern xTaskHandle TXTaskHandle;
 	extern xTaskHandle CommandHandlingTaskHandle;
+	extern xTaskHandle PCHandlingTaskHandle;
 	/*
 	 * MUTEX and Semaphore definitions
 	 */
 	extern SemaphoreHandle_t MUTEX_DEBUG;
 	extern SemaphoreHandle_t BINARY_MODEM;
+	extern SemaphoreHandle_t BINARY_PC;
 	extern QueueHandle_t QUEUE_RX_OBJECT;
 	extern QueueHandle_t QUEUE_TX_OBJECT;
+	extern QueueHandle_t QUEUE_RX_STATUS;
+	extern QueueHandle_t QUEUE_TX_STATUS;
+	extern QueueHandle_t QUEUE_PC_DATA;
+	extern QueueHandle_t QUEUE_PC_DATA_LENGTH;
+
 }
 #endif /* MODEM_H_ */

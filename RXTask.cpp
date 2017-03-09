@@ -14,6 +14,11 @@ void RXTaskCode(void* Parameters)
 {
 	DBG("RX task start.");
 
+	unsigned char TEMP[4];
+	unsigned char FREQ[4];
+	STRUCT_MODEM_STATUS* modem_status = new STRUCT_MODEM_STATUS;
+	xQueueSend(QUEUE_RX_STATUS, &modem_status, portMAX_DELAY);
+
 	SPI* rx_modem_spi = new SPI(PC_12, PC_11, PC_10);						// SPI for RX modem
 	DigitalOut* rx_modem_nsel = new DigitalOut(PC_9, 1);					// NSEL for RX modem
 	DigitalOut* rx_modem_sdn =  new DigitalOut(PD_13, 1);					// SDN for RX modem
@@ -51,12 +56,14 @@ void RXTaskCode(void* Parameters)
 
 	while(1)
 	{
-		double temperature = 0;
-		/*if(!rx_modem->Temperature(&temperature))
-		{
-			DBG("RX modem temperature failed!");
-		}
-		DBG("RX modem temperature = %f", temperature);*/
+		rx_modem->PartInfo(PART_INFO);
+		if(PART_INFO[1] == 0x44 && PART_INFO[2] == 0x63)
+			modem_status->status = 1;
+		else
+			modem_status->status = 0;
+
+		rx_modem->Temperature(modem_status->temperature);
+
 		vTaskDelay(1000);
 	}
 }
