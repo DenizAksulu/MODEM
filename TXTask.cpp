@@ -35,7 +35,7 @@ void TXTaskCode(void* Parameters)
 		DBG("TX modem initialization failed.");
 	}
 
-	if(!tx_modem->SetPA(0x0F))
+	if(!tx_modem->SetPA(0x32))
 	{
 		DBG("TX modem set PA failed.");
 	}
