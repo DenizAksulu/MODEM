@@ -27,6 +27,11 @@ int main()
 	time_t currentTime;
 	if(time(&currentTime) <= 0) set_time(0); // In case of RTC error, set time to 0.
 
+	BOOT_0=0;
+	wait_ms(1000);
+	NRESET=0;
+	wait_ms(1000);
+	NRESET=1;
 	DBG("OBCOMMS Modem code started with system core clock: %d Hz", SystemCoreClock);
 
 	// ***************************************************************************************
@@ -56,7 +61,7 @@ void WDTTaskCode(void* Parameters)
 	while(1)
 	{
 		WDI = !WDI;
-		LED_BLUE = !LED_BLUE;
+		LED_RED = !LED_RED;
 		vTaskDelay(1000);
 	}
 }

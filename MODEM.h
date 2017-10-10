@@ -53,6 +53,7 @@ namespace MODEM
 	extern DigitalOut SW2;
 	extern DigitalOut ENABLE_PA;
 	extern DigitalOut BOOT_0;
+	extern DigitalOut NRESET;
 	#if DEBUG
 	extern Serial DebugPort;
 	#endif
