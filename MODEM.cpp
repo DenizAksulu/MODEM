@@ -17,7 +17,6 @@ namespace MODEM
 	DigitalOut LED_RED(PB_11, 0);
 	DigitalOut SW1(PC_3, 0);
 	DigitalOut SW2(PC_1, 1);
-	DigitalOut ENABLE_PA(PE_3, 0);
 	DigitalOut BOOT_0(PB_4, 0);
 	#if DEBUG
 	Serial DebugPort(PA_0, PA_1, "DebugPort");

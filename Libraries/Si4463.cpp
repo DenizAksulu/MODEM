@@ -804,7 +804,7 @@ unsigned char Si4463::SendData(unsigned char* DATA, unsigned int LENGTH)
 		Broadcast(Buffer, 64);
 		//delay(500);
 	}
-
+	DBG("TX Modem -- Data sent with length %d", LENGTH);
 	return 1;
 }
 

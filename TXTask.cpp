@@ -86,6 +86,11 @@ void TXTaskCode(void* Parameters)
 		DBG("Clear interrupts failed.");
 	}
 	double temp = 0;
+	unsigned char buf[256];
+	for(int i = 0; i < 256; i++)
+	{
+		buf[i] = i;
+	}
 	while(1)
 	{
 		tx_modem->PartInfo(PART_INFO);
@@ -97,6 +102,7 @@ void TXTaskCode(void* Parameters)
 		tx_modem->Temperature(&temp);
 		DBG("TX Modem temperature %f", temp);
 
+		tx_modem->SendData(buf, 256);
 		vTaskDelay(1000);
 	}
 }
