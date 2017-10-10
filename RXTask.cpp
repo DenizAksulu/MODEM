@@ -63,7 +63,7 @@ void RXTaskCode(void* Parameters)
 			modem_status->status = 0;
 
 		rx_modem->Temperature(&temp);
-		DBG("RX Modem temperature %f", modem_status->temperature);
+		DBG("RX Modem temperature %f", temp);
 		vTaskDelay(1000);
 	}
 }
