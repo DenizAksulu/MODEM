@@ -53,7 +53,7 @@ void RXTaskCode(void* Parameters)
 	}
 	DBG("RX Part info = %X", PART_INFO[1]*256 + PART_INFO[2]);
 	rx_modem->StartRX(64, &SyncInterrupt);
-
+	double temp = 0;
 	while(1)
 	{
 		rx_modem->PartInfo(PART_INFO);
@@ -62,8 +62,8 @@ void RXTaskCode(void* Parameters)
 		else
 			modem_status->status = 0;
 
-		rx_modem->Temperature(modem_status->temperature);
-
+		rx_modem->Temperature(&temp);
+		DBG("RX Modem temperature %f", modem_status->temperature);
 		vTaskDelay(1000);
 	}
 }

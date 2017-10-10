@@ -63,7 +63,7 @@ unsigned char Si4463::FuncInfo(unsigned char* INFO)
 
 unsigned char Si4463::SetProperty(unsigned char GROUP, unsigned char NUM_PROPS, unsigned char START_PROP, unsigned char* DATA)
 {
-	unsigned char BUFFER[4 + NUM_PROPS] = {0};
+	unsigned char BUFFER[4 + NUM_PROPS];
 	BUFFER[0] = 0x11;
 	BUFFER[1] = GROUP;
 	BUFFER[2] = NUM_PROPS;
@@ -77,7 +77,7 @@ unsigned char Si4463::SetProperty(unsigned char GROUP, unsigned char NUM_PROPS, 
 
 unsigned char Si4463::GetProperty(unsigned char GROUP, unsigned char NUM_PROPS, unsigned char START_PROP, unsigned char* DATA)
 {
-	unsigned char BUFFER[NUM_PROPS] = {0};
+	unsigned char BUFFER[NUM_PROPS];
 	BUFFER[0] = 0x12;
 	BUFFER[1] = GROUP;
 	BUFFER[2] = NUM_PROPS;

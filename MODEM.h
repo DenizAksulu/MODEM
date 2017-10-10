@@ -16,7 +16,7 @@
 #include "SDFileSystem.h"
 
 
-#define DEBUG 0 // Debug mode enabled
+#define DEBUG 1 // Debug mode enabled
 
 #if DEBUG
 	#define DBG(...) \
@@ -52,6 +52,7 @@ namespace MODEM
 	extern DigitalOut SW1;
 	extern DigitalOut SW2;
 	extern DigitalOut ENABLE_PA;
+	extern DigitalOut BOOT_0;
 	#if DEBUG
 	extern Serial DebugPort;
 	#endif

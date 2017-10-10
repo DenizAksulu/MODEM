@@ -11,6 +11,7 @@ using namespace MODEM;
 
 int main()
 {
+	//ENABLE_PA = 1;
 	MUTEX_DEBUG = xSemaphoreCreateMutex();
 	BINARY_MODEM = xSemaphoreCreateBinary();
 	BINARY_PC = xSemaphoreCreateBinary();
