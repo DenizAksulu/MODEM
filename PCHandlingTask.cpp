@@ -13,7 +13,7 @@ using namespace MODEM;
 
 void PCHandlingTaskCode(void* Parameters)
 {
-	PC pc(PA_0, PA_1);
+	PC pc(PA_9, PA_10);
 	unsigned char* _RX_DATA;
 	unsigned char* _TX_DATA;
 	Si4463* tx_modem;
@@ -92,6 +92,30 @@ void PCHandlingTaskCode(void* Parameters)
 				TRANSMIT_BUFFER[i] = _RX_DATA[i + 1];
 			}
 			tx_modem->SendData(TRANSMIT_BUFFER, _RX_DATA_LENGTH - 1);
+			_TX_DATA = new unsigned char[2];
+			_TX_DATA[0] = _RX_DATA[0];
+			_TX_DATA[1] = PC_ACK;
+			pc.Send(_TX_DATA, 2);
+			delete[] _TX_DATA;
+			delete[] TRANSMIT_BUFFER;
+			break;
+		case PC_COMMAND_TRANSMIT_BEACON:
+			unsigned char* TRANSMIT_BUFFER = new unsigned char[_RX_DATA_LENGTH - 1];
+			for(int i = 0; i < _RX_DATA_LENGTH - 1; i++)
+			{
+				TRANSMIT_BUFFER[i] = _RX_DATA[i + 1];
+			}
+			tx_modem->BroadcastBeacon(TRANSMIT_BUFFER, _RX_DATA_LENGTH - 1);
+			_TX_DATA = new unsigned char[2];
+			_TX_DATA[0] = _RX_DATA[0];
+			_TX_DATA[1] = PC_ACK;
+			pc.Send(_TX_DATA, 2);
+			delete[] _TX_DATA;
+			delete[] TRANSMIT_BUFFER;
+			break;
+		case PC_COMMAND_SET_DASH_BEACON:
+			unsigned int dash = _RX_DATA[1] + _RX_DATA[2]*256 + _RX_DATA[3]*256*256+ _RX_DATA[4]*256*256*256;
+			tx_modem->dash = dash;
 			_TX_DATA = new unsigned char[2];
 			_TX_DATA[0] = _RX_DATA[0];
 			_TX_DATA[1] = PC_ACK;

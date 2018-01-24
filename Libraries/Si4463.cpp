@@ -22,6 +22,7 @@ Si4463::Si4463(SPI* spi, DigitalOut* nsel, DigitalOut* sdn)
 	_timeout = 10000;					// Command timeout in us
 	_spi->frequency(10000000);			// 10 MHz
 	_spi->format(8);					// 1 | 0
+	dash = 900;
 }
 
 unsigned char Si4463::PowerUp()
@@ -473,6 +474,342 @@ unsigned char Si4463::SetFrequency(unsigned int FREQ)
     // send parameters
     if(!_cmd(set_frequency_property_command, 8, 0)) return 0;
 	return 1;
+}
+
+unsigned char Si4463::SetTXModemBeacon()
+{
+
+	  unsigned char Buffer0[6] = {RF_GLOBAL_XO_TUNE_2_BEACON};
+	  if(!_cmd(Buffer0, 5, 0)) return 0;
+
+	  unsigned char Buffer1[5] = {RF_GLOBAL_CONFIG_1_BEACON};
+	  if(!_cmd(Buffer1, 5, 0)) return 0;
+
+	  unsigned char Buffer2[5] = {RF_INT_CTL_ENABLE_1_BEACON};
+	  if(!_cmd(Buffer2, 5, 0)) return 0;
+
+	  unsigned char Buffer3[16] = {RF_MODEM_MOD_TYPE_12_BEACON};
+	  if(!_cmd(Buffer3, 16, 0)) return 0;
+
+	  unsigned char Buffer4[5] = {RF_MODEM_FREQ_DEV_0_1_BEACON};
+	  if(!_cmd(Buffer4, 5, 0)) return 0;
+
+	  unsigned char Buffer5[12] = {RF_MODEM_TX_RAMP_DELAY_8_BEACON};
+	  if(!_cmd(Buffer5, 12, 0)) return 0;
+
+	  unsigned char Buffer6[13] = {RF_MODEM_BCR_OSR_1_9_BEACON};
+	  if(!_cmd(Buffer6, 13, 0)) return 0;
+
+	  unsigned char Buffer7[11] = {RF_MODEM_AFC_GEAR_7_BEACON};
+	  if(!_cmd(Buffer7, 11, 0)) return 0;
+
+	  unsigned char Buffer8[5] = {RF_MODEM_AGC_CONTROL_1_BEACON};
+	  if(!_cmd(Buffer8, 5, 0)) return 0;
+
+	  unsigned char Buffer9[13] = {RF_MODEM_AGC_WINDOW_SIZE_9_BEACON};
+	  if(!_cmd(Buffer9, 13, 0)) return 0;
+
+	  unsigned char Buffer10[12] = {RF_MODEM_OOK_CNT1_8_BEACON};
+	  if(!_cmd(Buffer10, 12, 0)) return 0;
+
+	  unsigned char Buffer11[5] = {RF_MODEM_RSSI_COMP_1_BEACON};
+	  if(!_cmd(Buffer11, 5, 0)) return 0;
+
+	  unsigned char Buffer12[5] = {RF_MODEM_CLKGEN_BAND_1_BEACON};
+	  if(!_cmd(Buffer12, 5, 0)) return 0;
+
+	  unsigned char Buffer13[16] = {RF_MODEM_CHFLT_RX1_CHFLT_COE13_7_0_12_BEACON};
+	  if(!_cmd(Buffer13, 16, 0)) return 0;
+
+	  unsigned char Buffer14[16] = {RF_MODEM_CHFLT_RX1_CHFLT_COE1_7_0_12_BEACON};
+	  if(!_cmd(Buffer14, 16, 0)) return 0;
+
+	  unsigned char Buffer15[16] = {RF_MODEM_CHFLT_RX2_CHFLT_COE7_7_0_12_BEACON};
+	  if(!_cmd(Buffer15, 16, 0)) return 0;
+
+	  unsigned char Buffer16[8] = {RF_PA_MODE_4_BEACON};
+	  if(!_cmd(Buffer16, 8, 0)) return 0;
+
+	  unsigned char Buffer17[11] = {RF_SYNTH_PFDCP_CPFF_7_BEACON};
+	  if(!_cmd(Buffer17, 11, 0)) return 0;
+
+	  unsigned char Buffer18[12] = {RF_FREQ_CONTROL_INTE_8_BEACON};
+	  if(!_cmd(Buffer18, 12, 0)) return 0;
+	  return 1;
+}
+
+unsigned char Si4463::BroadcastDOT()
+{
+ ChangeState(TX);
+ vTaskDelay((dash/3));
+ ChangeState(TUNE_TX);
+ vTaskDelay((dash/3));
+ return 1;
+}
+
+unsigned char Si4463::BroadcastDASH()
+{
+ ChangeState(TX);
+ vTaskDelay(dash);
+ ChangeState(TUNE_TX);
+ vTaskDelay((dash/3));
+ return 1;
+}
+
+unsigned char Si4463::BroadcastBeacon(unsigned char* DATA, unsigned int Length)
+{
+ LED_BLUE = 1;
+ for(int i = 0; i < Length; i++)
+ {
+  switch(DATA[i])
+  {
+  case 'A':
+   BroadcastDOT();
+   BroadcastDASH();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'B':
+   BroadcastDASH();
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDOT();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'C':
+   BroadcastDASH();
+   BroadcastDOT();
+   BroadcastDASH();
+   BroadcastDOT();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'D':
+   BroadcastDASH();
+   BroadcastDOT();
+   BroadcastDOT();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'E':
+   BroadcastDOT();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'F':
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDASH();
+   BroadcastDOT();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'G':
+   BroadcastDASH();
+   BroadcastDASH();
+   BroadcastDOT();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'H':
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDOT();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'I':
+   BroadcastDOT();
+   BroadcastDOT();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'J':
+   BroadcastDOT();
+   BroadcastDASH();
+   BroadcastDASH();
+   BroadcastDASH();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'K':
+   BroadcastDASH();
+   BroadcastDOT();
+   BroadcastDASH();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'L':
+   BroadcastDOT();
+   BroadcastDASH();
+   BroadcastDOT();
+   BroadcastDOT();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'M':
+   BroadcastDASH();
+   BroadcastDASH();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'N':
+   BroadcastDASH();
+   BroadcastDOT();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'O':
+   BroadcastDASH();
+   BroadcastDASH();
+   BroadcastDASH();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'P':
+   BroadcastDOT();
+   BroadcastDASH();
+   BroadcastDASH();
+   BroadcastDOT();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'Q':
+   BroadcastDASH();
+   BroadcastDASH();
+   BroadcastDOT();
+   BroadcastDASH();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'R':
+   BroadcastDOT();
+   BroadcastDASH();
+   BroadcastDOT();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'S':
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDOT();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'T':
+   BroadcastDASH();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'U':
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDASH();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'V':
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDASH();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'W':
+   BroadcastDOT();
+   BroadcastDASH();
+   BroadcastDASH();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'X':
+   BroadcastDASH();
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDASH();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'Y':
+   BroadcastDASH();
+   BroadcastDOT();
+   BroadcastDASH();
+   BroadcastDASH();
+   vTaskDelay((dash/3)*2);
+   break;
+  case 'Z':
+   BroadcastDASH();
+   BroadcastDASH();
+   BroadcastDOT();
+   BroadcastDOT();
+   vTaskDelay((dash/3)*2);
+   break;
+  case '0':
+   BroadcastDASH();
+   BroadcastDASH();
+   BroadcastDASH();
+   BroadcastDASH();
+   BroadcastDASH();
+   vTaskDelay((dash/3)*2);
+   break;
+  case '1':
+   BroadcastDOT();
+   BroadcastDASH();
+   BroadcastDASH();
+   BroadcastDASH();
+   BroadcastDASH();
+   vTaskDelay((dash/3)*2);
+   break;
+  case '2':
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDASH();
+   BroadcastDASH();
+   BroadcastDASH();
+   vTaskDelay((dash/3)*2);
+   break;
+  case '3':
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDASH();
+   BroadcastDASH();
+   vTaskDelay((dash/3)*2);
+   break;
+  case '4':
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDASH();
+   vTaskDelay((dash/3)*2);
+   break;
+  case '5':
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDOT();
+   vTaskDelay((dash/3)*2);
+   break;
+  case '6':
+   BroadcastDASH();
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDOT();
+   vTaskDelay((dash/3)*2);
+   break;
+  case '7':
+   BroadcastDASH();
+   BroadcastDASH();
+   BroadcastDOT();
+   BroadcastDOT();
+   BroadcastDOT();
+   vTaskDelay((dash / 3)*2);
+   break;
+  case '8':
+   BroadcastDASH();
+   BroadcastDASH();
+   BroadcastDASH();
+   BroadcastDOT();
+   BroadcastDOT();
+   vTaskDelay((dash / 3)*2);
+   break;
+  case '9':
+   BroadcastDASH();
+   BroadcastDASH();
+   BroadcastDASH();
+   BroadcastDASH();
+   BroadcastDOT();
+   vTaskDelay((dash / 3)*2);
+   break;
+  case ' ':
+   vTaskDelay(dash*3);
+   break;
+  }
+ }
+ LED_BLUE = 0;
+ return 1;
 }
 
 unsigned char Si4463::SetTXModem()

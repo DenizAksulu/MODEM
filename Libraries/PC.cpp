@@ -111,6 +111,7 @@ void UARTHandler()
 		{
 			if(RX_BUFFER[data_length - 3] == 'E' && RX_BUFFER[data_length - 2] == 'N' && RX_BUFFER[data_length - 1] == 'D')
 			{
+
 				_RX_DATA = new unsigned char[data_length - 3];
 				for(int i = 0; i < data_length - 3; i++)
 				{
@@ -122,6 +123,7 @@ void UARTHandler()
 				xQueueSendFromISR(QUEUE_PC_DATA, &_RX_DATA, &xHigherPriorityTaskWoken);
 				xQueueSendFromISR(QUEUE_PC_DATA_LENGTH, &data_length, &xHigherPriorityTaskWoken);
 				xSemaphoreGiveFromISR(BINARY_PC, &xHigherPriorityTaskWoken);
+				
 				if (xHigherPriorityTaskWoken != pdFALSE)
 				{
 					portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);

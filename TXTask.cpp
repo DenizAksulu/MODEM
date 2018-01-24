@@ -30,7 +30,7 @@ void TXTaskCode(void* Parameters)
 		DBG("Power up failed.");
 	}
 
-	if(!tx_modem->SetTXModem())
+	if(!tx_modem->SetTXModemBeacon())
 	{
 		DBG("TX modem initialization failed.");
 	}
@@ -52,11 +52,11 @@ void TXTaskCode(void* Parameters)
 	}
 	DBG("TX Part info = %X", PART_INFO[1]*256 + PART_INFO[2]);
 
-	if(!tx_modem->SetFrequency(430000000))
+	if(!tx_modem->SetFrequency(435000000))
 	{
 		DBG("TX modem frequency set failed.");
 	}
-	DBG("TX modem frequency set to %d Hz.", 430000000);
+	DBG("TX modem frequency set to %d Hz.", 435000000);
 
 	double temperature = 0;
 	if(!tx_modem->Temperature(&temperature))
@@ -76,10 +76,10 @@ void TXTaskCode(void* Parameters)
 		DBG("TX modem state transition failed: %d", SPI_ACTIVE);
 	}
 
-	if(!tx_modem->ChangeState(TX))
+	/*if(!tx_modem->ChangeState(TX))
 	{
 		DBG("TX modem state transition failed: %d", TX);
-	}
+	}*/
 
 	if(!tx_modem->ClearInterrupts())
 	{
@@ -102,7 +102,8 @@ void TXTaskCode(void* Parameters)
 		tx_modem->Temperature(&temp);
 		DBG("TX Modem temperature %f", temp);
 
-		tx_modem->SendData(buf, 256);
+		//tx_modem->SendData(buf, 256);
+		//tx_modem->BroadcastBeacon((unsigned char*)"ERTEK",5);
 		vTaskDelay(1000);
 	}
 }

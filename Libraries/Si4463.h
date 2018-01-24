@@ -10,6 +10,7 @@
 
 #include "../MODEM.h"
 #include "../TX_Config.h"
+#include "../TXDirectConf.h"
 
 enum GPIO_MODE {NO_EFFECT, IN_OUT_DISABLED, OUTPUT_LOW, OUTPUT_HIGH, INPUT,
 	OSC_32KHZ, BOOT_CLK, DIVIDED_MCU_CLK, CTS, INV_CTS, CMD_OVERLAP, MISO, POR, CALIB_TIM, WAKEUP_TIM,
@@ -27,6 +28,7 @@ class Si4463
 {
 public:
 	Si4463(SPI* spi, DigitalOut* nsel, DigitalOut* sdn);
+	unsigned int dash;
 	unsigned char PowerUp();
 	unsigned char NOP();
 	unsigned char PartInfo(unsigned char* INFO);
@@ -58,6 +60,10 @@ public:
 	unsigned char ReadRXFIFO_ISR(unsigned char* DATA, uint16_t LENGTH);
 	unsigned char SetFrequency(unsigned int FREQ);
 	unsigned char SetTXModem();
+	unsigned char SetTXModemBeacon();
+	unsigned char BroadcastDASH();
+	unsigned char BroadcastDOT();
+	unsigned char BroadcastBeacon(unsigned char* DATA, unsigned int Length);
 	unsigned char SetRXModem();
 	unsigned char SetFRR(FRR_CTL_MODE FRR_A, FRR_CTL_MODE FRR_B, FRR_CTL_MODE FRR_C, FRR_CTL_MODE FRR_D);
 	unsigned char SetPA(unsigned char PA);

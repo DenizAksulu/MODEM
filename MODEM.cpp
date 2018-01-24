@@ -15,8 +15,8 @@ namespace MODEM
 	DigitalOut WDI(PA_3, 1);
 	DigitalOut LED_BLUE(PB_10, 0);
 	DigitalOut LED_RED(PB_11, 0);
-	DigitalOut SW1(PC_3, 0);
-	DigitalOut SW2(PC_1, 1);
+	DigitalOut SW1(PC_3, 1);
+	DigitalOut SW2(PC_1, 0);
 	DigitalOut ENABLE_PA(PE_3, 1);
 	DigitalOut BOOT_0(PB_4, 0);
     DigitalOut NRESET(PB_6, 0);

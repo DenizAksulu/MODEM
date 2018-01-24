@@ -4,6 +4,8 @@
 *.o
 *.obj
 *.d
+*.bin
+*.hex
 
 # Precompiled Headers
 *.gch
@@ -28,3 +30,4 @@
 *.exe
 *.out
 *.app
+*.map

@@ -16,7 +16,7 @@
 #include "SDFileSystem.h"
 
 
-#define DEBUG 1 // Debug mode enabled
+#define DEBUG 0 // Debug mode enabled
 
 #if DEBUG
 	#define DBG(...) \
